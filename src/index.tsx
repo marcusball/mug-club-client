@@ -49,6 +49,7 @@ const TopicsView = ({ match }: RenderProps<{ topicId: string }>) => (
 const initialState: IRouteState = {
     location: location.state,
     auth: null,
+    verification: null
 };
 
 const appActions = new RouteActions(location.actions);
@@ -74,7 +75,7 @@ const view: View<IRouteState, RouteActions> = (state: IRouteState, actions: Rout
         </ul>
 
         {/* if auth is not null, dispaly the name */}
-        {state.auth && <span>You are logged in as <strong>{state.auth.name}</strong></span>}
+        {state.auth && <span>You are logged in.</span>}
 
         <hr />
 
