@@ -4,7 +4,7 @@ import { LocationActions, LocationState, RenderProps } from "../types/hyperapp-r
 
 import Config from "./config";
 import { IRouteState, RouteActions } from "./models";
-import { LoginView } from "./views";
+import { LoginView, DrinksView } from "./views";
 
 const root = document.getElementById("root") as HTMLElement;
 
@@ -72,6 +72,12 @@ const view: View<IRouteState, RouteActions> = (state: IRouteState, actions: Rout
                     <Link to="/login">Log In</Link>
                 </li>
             }
+            {/* Don't display login link if already logged in */
+                state.auth &&
+                <li>
+                    <Link to="/drinks">Drinks</Link>
+                </li>
+            }
         </ul>
 
         {/* if auth is not null, dispaly the name */}
@@ -83,6 +89,7 @@ const view: View<IRouteState, RouteActions> = (state: IRouteState, actions: Rout
         <Route path="/about" render={About} />
         <Route parent path="/topics" render={TopicsView} />
         <Route path="/login" render={LoginView(state, actions)} />
+        <Route path="/drinks" render={DrinksView(state, actions)} />
     </div>
 );
 
