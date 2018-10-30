@@ -8,4 +8,6 @@ export default interface IRouteState {
     auth: IAuth | null;
 
     verification: IAuthVerification | null;
+
+    drinks: object[] | null;
 }

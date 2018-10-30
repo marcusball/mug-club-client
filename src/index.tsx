@@ -3,7 +3,7 @@ import { app, h, View, VNode } from "hyperapp";
 import { LocationActions, LocationState, RenderProps } from "../types/hyperapp-router";
 
 import Config from "./config";
-import { IRouteState, RouteActions } from "./models";
+import { IRouteState, RouteActions, IAuth } from "./models";
 import { LoginView, DrinksView } from "./views";
 
 const root = document.getElementById("root") as HTMLElement;
@@ -46,10 +46,19 @@ const TopicsView = ({ match }: RenderProps<{ topicId: string }>) => (
     </div>
 );
 
+// Try to load saved auth from storage
+let savedAuth = localStorage.getItem('auth');
+let auth = null;
+if (savedAuth) {
+    auth = JSON.parse(savedAuth) as IAuth;
+    console.log('Loaded existing auth', auth);
+}
+
 const initialState: IRouteState = {
     location: location.state,
-    auth: null,
-    verification: null
+    auth: auth,
+    verification: null,
+    drinks: null
 };
 
 const appActions = new RouteActions(location.actions);
