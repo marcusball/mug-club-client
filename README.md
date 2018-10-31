@@ -1,33 +1,31 @@
-# Mug Club Client
+# mug-club-client
 
-## Setup
-
-### Prerequisits
-
-* [Yarn](https://yarnpkg.com/)
-
-* [Parcel](https://parceljs.org/): `yarn global add parcel-bundler`
-
-### Config
-
-This uses `.env` files to for configuration. See the [Parcel Environment Variable docs](https://parceljs.org/env.html).
-
-Expected configuration: 
-
-```
-API_URL=http://localhost:8000/
-```
-
-### Installing
-
+## Project setup
 ```
 yarn install
 ```
 
-### Building
-
-Build and run for development: 
-
+### Compiles and hot-reloads for development
 ```
-yarn start
+yarn run serve
+```
+
+### Compiles and minifies for production
+```
+yarn run build
+```
+
+### Run your tests
+```
+yarn run test
+```
+
+### Lints and fixes files
+```
+yarn run lint
+```
+
+### Run your unit tests
+```
+yarn run test:unit
 ```
