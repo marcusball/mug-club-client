@@ -13,60 +13,47 @@ export default new Vuex.Store({
     verificationIdentity: { countryCode: '', phoneNumber: '' }
   },
   mutations: {
-    auth_request(state: any) {
-      state.status = 'loading';
-    },
-    auth_verify(state: any, { countryCode, phoneNumber }: { countryCode: string, phoneNumber: string }) {
-      state.status = 'verify';
-
-      state.verificationIdentity.countryCode = countryCode;
-      state.verificationIdentity.phoneNumber = phoneNumber;
-    },
-    auth_verify_request(state: any) {
-      state.status = 'loading';
-    },
     auth_success(state: any, session: any) {
       state.status = 'success';
       state.verificationIdentity = null;
       state.token = session.id;
+    },
+    logout(state: any) {
+      state.token = '';
     }
   } as any,
   actions: {
     login({ commit }, identity) {
       return new Promise((resolve, reject) => {
-        commit('auth_request');
-
         const API_BASE = process.env.VUE_APP_API_URL;
 
         const form = new URLSearchParams();
-        form.append('country_code', '1');
-        form.append('phone_number', identity.phone_number);
+        form.append('country_code', identity.countryCode);
+        form.append('phone_number', identity.phoneNumber);
 
         fetch(`${API_BASE}/auth`, {
           method: 'POST',
-          body: form
+          body: form,
         })
-          .then(resp => {
-            commit('auth_verify', { countryCode: '1', phoneNumber: identity.phone_number });
+          .then((resp) => {
             resolve(resp);
           })
-          .catch(err => {
-            commit('auth_error');
+          .catch((err) => {
             localStorage.removeItem('token');
             reject(err);
           });
       });
     },
-    login_verify({ commit, state }, verificationCode) {
+    loginVerify({ commit, state }, identity) {
       return new Promise((resolve, reject) => {
         commit('auth_verify_request');
 
         const API_BASE = process.env.VUE_APP_API_URL;
 
         const form = new URLSearchParams();
-        form.append('country_code', state.verificationIdentity.countryCode);
-        form.append('phone_number', state.verificationIdentity.phoneNumber);
-        form.append('code', verificationCode);
+        form.append('country_code', identity.countryCode);
+        form.append('phone_number', identity.phoneNumber);
+        form.append('code', identity.verificationCode);
 
         fetch(`${API_BASE}/auth/verify`, {
           method: 'POST',

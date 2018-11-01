@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './components/Login.vue';
-import LoginVerify from './components/LoginVerify.vue';
 
 Vue.use(Router);
 
@@ -19,11 +18,6 @@ export default new Router({
       path: '/auth',
       name: 'login',
       component: Login,
-    },
-    {
-      path: '/auth/verify',
-      name: 'verify',
-      component: LoginVerify,
     },
     {
       path: '/about',
