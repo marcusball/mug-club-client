@@ -3,8 +3,12 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-      <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
-      <span v-else> | <router-link to="/auth">Login</router-link></span>
+      
+      <template v-if="isLoggedIn"> 
+        | <router-link to="/drinks">Drinks</router-link>
+        | <a @click="logout">Logout</a>
+      </template>
+      <template v-else> | <router-link to="/auth">Login</router-link></template>
     </div>
     <router-view/>
   </div>

@@ -20,6 +20,11 @@ export default new Router({
       component: Login,
     },
     {
+      path: '/drinks',
+      name: 'drinks',
+      component: () => import('./views/Drinks.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
