@@ -8,8 +8,10 @@
         <input id="drink-brewery" v-model="brewery" type="text"/>
         <br />
 
-        <label for="drink-rating">Rating:</label>
-        <input id="drink-rating" v-model="rating" type="number" placeholder="5" />
+        <star-rating v-model="rating"
+          :show-rating="false"
+          :border-width="5"
+          :rounded-corners="true"></star-rating>
         <br />
 
         <label for="drink-comment">Comment:</label>
@@ -21,12 +23,14 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
+
 export default {
   data() {
     return {
       name: "",
       brewery: "",
-      rating: null,
+      rating: false,
       comment: ""
     };
   },
@@ -55,6 +59,10 @@ export default {
           this.$emit("new-drink"); // refresh the list
         });
     }
+  },
+
+  components: {
+    StarRating
   }
 };
 </script>
