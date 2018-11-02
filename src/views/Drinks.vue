@@ -6,7 +6,9 @@
             <ul v-if="drinks.length">
                 <li v-for="drink in drinks" 
                     v-bind:key="drink.id">
-                    {{drink.name}} - {{drink.brewery}} - {{drink.rating}}
+                    <p>{{drink.name}} - {{drink.brewery}} - {{drink.rating}}</p>
+                    <p v-if="drink.comment">{{drink.comment}}</p>
+                    <p v-else><em>No comment</em></p>
                 </li>
             </ul>
             <p v-else>You have not added any drinks!</p>
