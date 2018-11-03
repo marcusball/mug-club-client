@@ -1,23 +1,31 @@
 <template>
-    <div>
-        <form v-if="!verifying" class="login" @submit.prevent="login">
-            <h1>Sign in</h1>
-            <label>Phone number</label>
-            <vue-tel-input v-model="phoneNumber"
-                  @onInput="onInput"
-                  :required="true"
-                  :preferredCountries="['us', 'ca', 'gb', 'au']">
-           </vue-tel-input>
-            <hr />
-            <button type="submit">Login</button>
-        </form>
-        <form v-else class="login" @submit.prevent="loginVerify">
-            <h1>Sign in</h1>
-            <label>Verification code</label>
-            <input required v-model="verificationCode" type="text" placeholder="000000" />
-            <hr />
-            <button type="submit">Login</button>
-        </form>
+    <div class="container">
+      <div class="columns">
+        <div class="column col-4 col-sm-12 col-mx-auto">
+          <h1>Sign in</h1>
+
+          <form v-if="!verifying" class="login" @submit.prevent="login">
+            <div class="form-group">
+              <label class="form-label">Phone number</label>
+              <vue-tel-input v-model="phoneNumber"
+                    @onInput="onInput"
+                    :required="true"
+                    :preferredCountries="['us', 'ca', 'gb', 'au']">
+              </vue-tel-input>
+              <hr />
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+          <form v-else class="login" @submit.prevent="loginVerify">
+            <div class="form-group">
+              <label class="form-label">Verification code</label>
+              <input required v-model="verificationCode" type="text" placeholder="000000" class="form-input input-lg" />
+              <hr />
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 </template>
 

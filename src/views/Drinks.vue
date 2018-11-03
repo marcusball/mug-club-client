@@ -1,24 +1,28 @@
 <template>
+  <div class="container">
+    <h2>Drinks</h2>
     <div>
-        <h2>Drinks</h2>
+      <template v-if="!loading">
+          <div v-if="drinks.length">
+              <div v-for="drink in drinks" 
+                  v-bind:key="drink.id"
+                  class="columns">
+                  <div class="column col-3">{{drink.name}}</div>
+                  <div class="column col-3">{{drink.brewery}}</div>
+                  <div class="column col-3">{{drink.rating}}</div>
+                  <div v-if="drink.comment" class="column col-3">{{drink.comment}}</div>
+                  <div v-else class="column col-3"><em>No comment</em></div>
+              </div>
+          </div>
+          <p v-else>You have not added any drinks!</p>
+      </template>
+      <p v-else>Loading...</p>
 
-        <template v-if="!loading">
-            <ul v-if="drinks.length">
-                <li v-for="drink in drinks" 
-                    v-bind:key="drink.id">
-                    <p>{{drink.name}} - {{drink.brewery}} - {{drink.rating}}</p>
-                    <p v-if="drink.comment">{{drink.comment}}</p>
-                    <p v-else><em>No comment</em></p>
-                </li>
-            </ul>
-            <p v-else>You have not added any drinks!</p>
-        </template>
-        <p v-else>Loading...</p>
+      <hr />
 
-        <hr />
-
-        <DrinkForm @new-drink="refreshDrinkList" />
+      <DrinkForm @new-drink="refreshDrinkList" />
     </div>
+  </div>
 </template>
 
 <script>
