@@ -10,7 +10,7 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     person: {},
-    verificationIdentity: { countryCode: '', phoneNumber: '' }
+    verificationIdentity: { countryCode: '', phoneNumber: '' },
   },
   mutations: {
     auth_success(state: any, session: any) {
@@ -20,7 +20,7 @@ export default new Vuex.Store({
     },
     logout(state: any) {
       state.token = '';
-    }
+    },
   } as any,
   actions: {
     login({ commit }, identity) {
@@ -57,21 +57,21 @@ export default new Vuex.Store({
 
         fetch(`${API_BASE}/auth/verify`, {
           method: 'POST',
-          body: form
+          body: form,
         })
-          .then(resp => resp.json())
-          .then(session => {
+          .then((resp) => resp.json())
+          .then((session) => {
             console.log(session);
             localStorage.setItem('token', session.id);
             commit('auth_success', session);
             resolve(session);
           })
-          .catch(err => {
+          .catch((err) => {
             commit('auth_error');
             localStorage.removeItem('token');
             reject(err);
           });
-      })
+      });
     },
     logout({ commit }) {
       return new Promise((resolve, reject) => {
@@ -79,12 +79,12 @@ export default new Vuex.Store({
         localStorage.removeItem('token');
         resolve();
       });
-    }
+    },
   },
   getters: {
-    isLoggedIn: state => !!state.token,
-    authStatus: state => state.status,
+    isLoggedIn: (state) => !!state.token,
+    authStatus: (state) => state.status,
 
     verificationIdentity: (state) => state.verificationIdentity,
-  }
+  },
 });
