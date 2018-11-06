@@ -20,7 +20,9 @@
 
       <hr />
 
-      <DrinkForm @new-drink="refreshDrinkList" />
+      <div class="container column col-4 col-md-8 col-sm-12 col-mx-auto">
+        <DrinkForm @new-drink="refreshDrinkList" />
+      </div>
     </div>
   </div>
 </template>

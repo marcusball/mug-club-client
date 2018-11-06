@@ -1,28 +1,70 @@
 <template>
-    <form @submit.prevent="newDrink">
-        <datetime v-model="drankOn">
-          <label for="startDate" slot="before">Drank on:</label>
-        </datetime>
+    <form @submit.prevent="newDrink" class="form-horizontal">
+      <div class="form-group">
+        <div class="col-3 col-sm-12">
+          <label class="form-label" for="drink-date">Drank on:</label>
+        </div>
+        <div class="col-9 col-sm-12">
+          <datetime 
+            v-model="drankOn" 
+            input-id="drink-date"
+            input-class="form-input">
+          </datetime>
+        </div>
+      </div>
 
-        <label for="drink-name">Beer:</label>
-        <input id="drink-name" v-model="name" type="text">
-        <br />
+      <div class="form-group">
+        <div class="col-3 col-sm-12">
+          <label class="form-label" for="drink-name">Beer:</label>
+        </div>
+        <div class="col-9 col-sm-12">
+          <input id="drink-name" v-model="name" class="form-input" type="text">
+        </div>
+      </div>
 
-        <label for="drink-brewery">Brewery:</label>
-        <input id="drink-brewery" v-model="brewery" type="text"/>
-        <br />
+      <div class="form-group">
+        <div class="col-3 col-sm-12">
+          <label class="form-label" for="drink-brewery">Brewery:</label>
+        </div>
+        <div class="col-9 col-sm-12">
+          <input id="drink-brewery" v-model="brewery" class="form-input" type="text"/>
+        </div>
+      </div>
 
-        <star-rating v-model="rating"
-          :show-rating="false"
-          :border-width="5"
-          :rounded-corners="true"></star-rating>
-        <br />
+      <div class="form-group">
+        <div class="col-3 col-sm-12">
+          <label class="form-label">Rating:</label>
+        </div>
+        <div class="col-9 col-sm-12">
+          <div class="hide-sm">
+            <star-rating v-model="rating"
+              :show-rating="false"
+              :border-width="5"
+              :rounded-corners="true"
+              :star-size="50">
+            </star-rating>
+          </div>
+          <div class="show-sm">
+            <star-rating v-model="rating"
+              :show-rating="false"
+              :border-width="5"
+              :rounded-corners="true"
+              :star-size="40">
+            </star-rating>
+          </div>
+        </div>
+      </div>
 
-        <label for="drink-comment">Comment:</label>
-        <textarea id="drink-comment" v-model="comment"></textarea>
-        <br />
+      <div class="form-group">
+        <div class="col-3 col-sm-12">
+          <label class="form-label" for="drink-comment">Comment:</label>
+        </div>
+        <div class="col-9 col-sm-12">
+          <textarea id="drink-comment" v-model="comment" class="form-input"></textarea>
+        </div>
+      </div>
 
-        <input type="submit" value="Add Drink" />
+        <input type="submit" value="Add Drink" class="btn btn-primary btn-lg" />
     </form>
 </template>
 
