@@ -4,15 +4,11 @@
     <div>
       <template v-if="!loading">
           <div v-if="drinks.length">
-              <div v-for="drink in drinks" 
-                  v-bind:key="drink.id"
-                  class="columns">
-                  <div class="column col-3">{{drink.name}}</div>
-                  <div class="column col-3">{{drink.brewery}}</div>
-                  <div class="column col-3">{{drink.rating}}</div>
-                  <div v-if="drink.comment" class="column col-3">{{drink.comment}}</div>
-                  <div v-else class="column col-3"><em>No comment</em></div>
-              </div>
+              <Drink v-for="drink in drinks" 
+                  :key="drink.id"
+                  class="columns"
+                  :drink="drink">
+              </Drink>
           </div>
           <p v-else>You have not added any drinks!</p>
       </template>
@@ -29,6 +25,7 @@
 
 <script>
 import DrinkForm from "@/components/DrinkListNewDrinkForm";
+import Drink from "@/components/DrinkListDrink";
 
 export default {
   data() {
@@ -39,7 +36,8 @@ export default {
   },
 
   components: {
-    DrinkForm
+    DrinkForm,
+    Drink
   },
 
   created: function() {
