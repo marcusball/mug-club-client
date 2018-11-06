@@ -36,6 +36,9 @@
           <label class="form-label">Rating:</label>
         </div>
         <div class="col-9 col-sm-12">
+          <!-- The star-rating doesn't currently support responsive layouts -->
+          <!-- See: https://github.com/craigh411/vue-star-rating/issues/28 -->
+          <!-- This first input will show only for screen sizes > 600px wide -->
           <div class="hide-sm">
             <star-rating v-model="rating"
               :show-rating="false"
@@ -44,6 +47,7 @@
               :star-size="50">
             </star-rating>
           </div>
+          <!-- This input will show for screen sizes <= 600px wide -->
           <div class="show-sm">
             <star-rating v-model="rating"
               :show-rating="false"
