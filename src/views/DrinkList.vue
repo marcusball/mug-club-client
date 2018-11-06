@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import DrinkForm from "@/components/DrinkForm";
+import DrinkForm from "@/components/DrinkListNewDrinkForm";
 
 export default {
   data() {

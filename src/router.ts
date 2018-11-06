@@ -21,7 +21,7 @@ export default new Router({
     {
       path: '/drinks',
       name: 'drinks',
-      component: () => import('./views/Drinks.vue'),
+      component: () => import('./views/DrinkList.vue'),
     },
     {
       path: '/about',
