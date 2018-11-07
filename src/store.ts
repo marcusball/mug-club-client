@@ -34,6 +34,9 @@ export default new Vuex.Store({
         fetch(`${API_BASE}/auth`, {
           method: 'POST',
           body: form,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          },
         })
           .then((resp) => {
             resolve(resp);
@@ -58,6 +61,9 @@ export default new Vuex.Store({
         fetch(`${API_BASE}/auth/verify`, {
           method: 'POST',
           body: form,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          },
         })
           .then((resp) => resp.json())
           .then((session) => {

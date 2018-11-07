@@ -65,7 +65,10 @@ export default {
         .then(drinks => {
           vm.drinks = drinks;
         })
-        .catch(wtf => console.error(wtf));
+        .catch(wtf => {
+          console.error(wtf);
+          alert(wtf);
+        });
     }
   }
 };

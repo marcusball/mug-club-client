@@ -105,13 +105,17 @@ export default {
         method: "POST",
         body: form,
         headers: {
-          Authorization: this.$store.state.token
+          Authorization: this.$store.state.token,
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
         }
       })
         .then(response => response.json())
         .then(drink => {
           console.log(drink);
           this.$emit("new-drink"); // refresh the list
+        })
+        .catch(err => {
+          alert(err);
         });
     }
   },
