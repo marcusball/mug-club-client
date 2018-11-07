@@ -1,4 +1,4 @@
-export interface IDrink {
+export default interface IDrink {
     id: number;
     drank_on: string;
     name: string;

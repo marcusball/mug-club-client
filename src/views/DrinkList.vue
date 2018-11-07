@@ -6,7 +6,7 @@
           <div v-if="drinks.length">
               <Drink v-for="drink in drinks" 
                   :key="drink.id"
-                  class="columns"
+                  class="columns bg-gray m-2 p-2"
                   :drink="drink">
               </Drink>
           </div>
