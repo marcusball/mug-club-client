@@ -69,7 +69,7 @@ export default {
           countryCode: this.countryCode,
           verificationCode: this.verificationCode
         })
-        .then(() => this.$router.push("/"))
+        .then(() => this.$router.push("/drinks"))
         .catch(err => console.error(err));
     },
 
