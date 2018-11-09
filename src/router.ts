@@ -4,7 +4,7 @@ import Home from './views/Home.vue';
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -22,6 +22,9 @@ export default new Router({
       path: '/drinks',
       name: 'drinks',
       component: () => import('./views/DrinkList.vue'),
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/about',
@@ -31,5 +34,24 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     },
-  ],
+  ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (localStorage.getItem('token') == null) {
+      next({
+        path: '/auth',
+      });
+    }
+    else {
+      next();
+    }
+  }
+  else {
+    next();
+  }
+})
+
+
+export default router;
