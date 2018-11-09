@@ -18,7 +18,7 @@
             <p class="empty-title h5">You have not added any drinks yet.</p>
             <p class="empty-subtitle">After you've bought a drink, add it to your Mug Club list using the form below.</p>
             <div class="empty-action">
-              <button class="btn btn-primary">Record a drink</button>
+              <button v-scroll-to="'#drink-form-container'" class="btn btn-primary">Record a drink</button>
             </div>
           </div>
       </template>
@@ -30,7 +30,7 @@
 
       <div class="divider text-center" data-content="Record a new drink"></div>
 
-      <div class="container column col-4 col-md-8 col-sm-12 col-mx-auto">
+      <div id="drink-form-container" class="container column col-4 col-md-8 col-sm-12 col-mx-auto">
         <DrinkForm @new-drink="refreshDrinkList" />
       </div>
     </div>

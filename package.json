@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.5.0",
     "@fortawesome/vue-fontawesome": "^0.1.2",
     "@types/url-search-params": "^0.10.2",
+    "@types/vue-scrollto": "^2.7.2",
     "luxon": "^1.4.5",
     "register-service-worker": "^1.0.0",
     "spectre.css": "^0.5.3",
@@ -22,6 +23,7 @@
     "vue-datetime": "^1.0.0-beta.8",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
+    "vue-scrollto": "^2.13.0",
     "vue-star-rating": "^1.6.1",
     "vue-tel-input": "^2.0.8",
     "vuex": "^3.0.1"
