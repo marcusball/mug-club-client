@@ -10,11 +10,25 @@
                   :drink="drink">
               </Drink>
           </div>
-          <p v-else>You have not added any drinks!</p>
-      </template>
-      <p v-else>Loading...</p>
 
-      <hr />
+          <div v-else class="empty">
+            <div class="empty-icon">
+              <font-awesome-icon icon="beer" size="7x" fixed-width class="text-gray mx-2" />
+            </div>
+            <p class="empty-title h5">You have not added any drinks yet.</p>
+            <p class="empty-subtitle">After you've bought a drink, add it to your Mug Club list using the form below.</p>
+            <div class="empty-action">
+              <button class="btn btn-primary">Record a drink</button>
+            </div>
+          </div>
+      </template>
+
+      <div v-else>
+        <div class="loading loading-lg"></div>
+        <div class="flex-centered h4 text-gray">Loading...</div>
+      </div>
+
+      <div class="divider text-center" data-content="Record a new drink"></div>
 
       <div class="container column col-4 col-md-8 col-sm-12 col-mx-auto">
         <DrinkForm @new-drink="refreshDrinkList" />
