@@ -38,9 +38,20 @@ export default new Vuex.Store({
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
           },
         })
-          .then((resp) => {
-            resolve(resp);
+          .then((response) => {
+            // If the response code was not a 2XX code
+            if (!response.ok) {
+              // Read the body
+              return response.text()
+                .then((body) => {
+                  // then throw an error with the text of the body
+                  throw new Error(body);
+                });
+            }
+
+            return response.text();
           })
+          .then((body) => { resolve(body); })
           .catch((err) => {
             localStorage.removeItem('token');
             reject(err);
@@ -65,7 +76,19 @@ export default new Vuex.Store({
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
           },
         })
-          .then((resp) => resp.json())
+          .then((response) => {
+            // If the response code was not a 2XX code
+            if (!response.ok) {
+              // Read the body
+              return response.text()
+                .then((body) => {
+                  // then throw an error with the text of the body
+                  throw new Error(body);
+                });
+            }
+
+            return response.json();
+          })
           .then((session) => {
             console.log(session);
             localStorage.setItem('token', session.id);

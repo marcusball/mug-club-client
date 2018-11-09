@@ -9,17 +9,12 @@ let router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home,
-    },
-    {
       path: '/auth',
       name: 'login',
       component: () => import('./views/Login.vue'),
     },
     {
-      path: '/drinks',
+      path: '/',
       name: 'drinks',
       component: () => import('./views/DrinkList.vue'),
       meta: {

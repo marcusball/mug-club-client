@@ -2,8 +2,7 @@
   <div id="app" class="container">
     <header class="navbar">
       <section class="navbar-section">
-        <router-link to="/" class="navbar-brand mr-2">Home</router-link>
-        <router-link v-if="isLoggedIn" to="/drinks" class="btn btn-link">Drinks</router-link>
+        <router-link v-if="isLoggedIn" to="/" class="navbar-brand mr-2">Drinks</router-link>
         <router-link to="/about" class="btn btn-link">About</router-link>
        
       </section>
@@ -31,7 +30,7 @@ export default {
   methods: {
     logout: function() {
       this.$store.dispatch("logout").then(() => {
-        this.$router.push("/login");
+        this.$router.push("/auth");
       });
     }
   }

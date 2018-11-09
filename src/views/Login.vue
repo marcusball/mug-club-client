@@ -2,16 +2,26 @@
     <div class="container">
       <div class="columns">
         <div class="column col-4 col-sm-12 col-mx-auto">
-          <h1>Sign in</h1>
+          <h1>Sign in or Register</h1>
+
+          <div v-if="errorMessage" class="toast toast-error mb-2">
+            {{ errorMessage }}
+          </div>
 
           <form v-if="!verifying" class="login" @submit.prevent="login">
             <div class="form-group">
               <label class="form-label">Phone number</label>
-              <vue-tel-input v-model="phoneNumber"
-                    @onInput="onInput"
-                    :required="true"
-                    :preferredCountries="['us', 'ca', 'gb', 'au']">
-              </vue-tel-input>
+
+              <div class="has-icon-right">
+                <vue-tel-input v-model="phoneNumber"
+                      @onInput="onInput"
+                      :required="true"
+                      :preferredCountries="['us', 'ca', 'gb', 'au']">
+                </vue-tel-input>
+
+                <!-- loading icon for the form input -->
+                <i v-if="isRequestLoading" class="form-icon loading"></i>
+              </div>
               <hr />
               <button type="submit" class="btn btn-primary">Login</button>
             </div>
@@ -19,7 +29,14 @@
           <form v-else class="login" @submit.prevent="loginVerify">
             <div class="form-group">
               <label class="form-label">Verification code</label>
-              <input required v-model="verificationCode" type="text" placeholder="000000" class="form-input input-lg" />
+
+              <div class="has-icon-right">
+                <input required v-model="verificationCode" type="tel" placeholder="000000" class="form-input input-lg" />
+
+                <!-- loading icon for the form input -->
+                <i v-if="isRequestLoading" class="form-icon loading"></i>
+              </div>
+
               <hr />
               <button type="submit" class="btn btn-primary">Login</button>
             </div>
@@ -42,35 +59,63 @@ export default {
       countryCode: "",
       isNumberValid: false,
       verifying: false,
-      verificationCode: ""
+      verificationCode: "",
+
+      /// True when a request to the API is running, and a loading icon should be displayed.
+      isRequestLoading: false,
+
+      errorMessage: ""
     };
   },
 
   methods: {
     login: function() {
+      this.isRequestLoading = true;
+      this.errorMessage = "";
+
       this.$store
         .dispatch("login", {
           countryCode: this.countryCode,
           phoneNumber: this.cleanedPhoneNumber
         })
-        .then(resp => {
+        .then(response => {
+          // Now display the input for entering verification code
           this.verifying = true;
         })
         .catch(err => {
           this.verifying = false;
-          alert(err);
+
+          // Display the message contained in the error, or default text otherwise.
+          this.errorMessage =
+            err.message || "There was an error while trying to log you in :(";
+        })
+        .finally(() => {
+          this.isRequestLoading = false;
         });
     },
 
     loginVerify: function() {
+      this.errorMessage = "";
+      this.isRequestLoading = true;
+
       this.$store
         .dispatch("loginVerify", {
           phoneNumber: this.cleanedPhoneNumber,
           countryCode: this.countryCode,
           verificationCode: this.verificationCode
         })
-        .then(() => this.$router.push("/drinks"))
-        .catch(err => console.error(err));
+        .then(() => {
+          this.isRequestLoading = false;
+          this.$router.push("/");
+        })
+        .catch(err => {
+          this.isRequestLoading = false;
+          console.error(err);
+
+          // Display the message contained in the error, or default text otherwise.
+          this.errorMessage =
+            err.message || "There was an error while trying to log you in :(";
+        });
     },
 
     /**
@@ -86,8 +131,6 @@ export default {
       this.phoneNumber = number;
       this.countryCode = country.dialCode;
       this.isNumberValid = isValid;
-
-      console.log(this.cleanedPhoneNumber, isValid, country.dialCode);
     }
   },
 
