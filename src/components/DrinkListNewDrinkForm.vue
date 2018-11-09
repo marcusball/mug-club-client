@@ -8,7 +8,8 @@
           <datetime 
             v-model="drankOn" 
             input-id="drink-date"
-            input-class="form-input">
+            input-class="form-input"
+            @close="focusDrinkName">
           </datetime>
         </div>
       </div>
@@ -18,7 +19,12 @@
           <label class="form-label" for="drink-name">Beer:</label>
         </div>
         <div class="col-9 col-sm-12">
-          <input id="drink-name" v-model="name" class="form-input" type="text">
+          <input id="drink-name" 
+            v-model="name" 
+            ref="drinkName" 
+            class="form-input" 
+            type="text"
+            @keydown.enter.prevent="$refs.drinkBrewery.focus" />
         </div>
       </div>
 
@@ -27,11 +33,16 @@
           <label class="form-label" for="drink-brewery">Brewery:</label>
         </div>
         <div class="col-9 col-sm-12">
-          <input id="drink-brewery" v-model="brewery" class="form-input" type="text"/>
+          <input id="drink-brewery" 
+            v-model="brewery" 
+            ref="drinkBrewery" 
+            class="form-input" 
+            type="text" 
+            @keydown.enter.prevent="scrollToRating" />
         </div>
       </div>
 
-      <div class="form-group">
+      <div id="rating-container" class="form-group">
         <div class="col-3 col-sm-12">
           <label class="form-label">Rating:</label>
         </div>
@@ -44,7 +55,8 @@
               :show-rating="false"
               :border-width="5"
               :rounded-corners="true"
-              :star-size="50">
+              :star-size="50"
+              ref="drinkRating">
             </star-rating>
           </div>
           <!-- This input will show for screen sizes <= 600px wide -->
@@ -53,7 +65,8 @@
               :show-rating="false"
               :border-width="5"
               :rounded-corners="true"
-              :star-size="40">
+              :star-size="40"
+              ref="drink-rating">
             </star-rating>
           </div>
         </div>
@@ -64,11 +77,14 @@
           <label class="form-label" for="drink-comment">Comment:</label>
         </div>
         <div class="col-9 col-sm-12">
-          <textarea id="drink-comment" v-model="comment" class="form-input"></textarea>
+          <textarea id="drink-comment" 
+            v-model="comment" 
+            class="form-input">
+          </textarea>
         </div>
       </div>
 
-        <input type="submit" value="Add Drink" class="btn btn-primary btn-lg" />
+        <input type="submit" value="Add Drink" ref="drinkSubmit" class="btn btn-primary btn-lg" />
     </form>
 </template>
 
@@ -117,6 +133,16 @@ export default {
         .catch(err => {
           alert(err);
         });
+    },
+
+    scrollToRating() {
+      this.$scrollTo("#rating-container", 250, {
+        cancelable: false
+      });
+    },
+
+    focusDrinkName() {
+      this.$refs.drinkName.focus();
     }
   },
 
