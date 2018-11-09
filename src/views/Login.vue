@@ -16,13 +16,16 @@
                 <vue-tel-input v-model="phoneNumber"
                       @onInput="onInput"
                       :required="true"
-                      :preferredCountries="['us', 'ca', 'gb', 'au']">
+                      :preferredCountries="['us', 'ca', 'gb', 'au']"
+                      :placeholder="'Enter your phone number'" >
                 </vue-tel-input>
 
                 <!-- loading icon for the form input -->
                 <i v-if="isRequestLoading" class="form-icon loading"></i>
               </div>
-              <hr />
+            </div>
+
+            <div class="form-group">
               <button type="submit" class="btn btn-primary">Login</button>
             </div>
           </form>
@@ -36,8 +39,9 @@
                 <!-- loading icon for the form input -->
                 <i v-if="isRequestLoading" class="form-icon loading"></i>
               </div>
+            </div>
 
-              <hr />
+            <div class="form-group">
               <button type="submit" class="btn btn-primary">Login</button>
             </div>
           </form>
