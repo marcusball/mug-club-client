@@ -126,8 +126,8 @@ export default {
         }
       })
         .then(response => response.json())
-        .then(drink => {
-          console.log(drink);
+        .then(response => {
+          console.log(response.data.drink);
           this.$emit("new-drink"); // refresh the list
         })
         .catch(err => {

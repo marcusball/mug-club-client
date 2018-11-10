@@ -83,6 +83,15 @@ export default {
           phoneNumber: this.cleanedPhoneNumber
         })
         .then(response => {
+          // If there were any errors
+          if (response.status !== "success") {
+            this.errorMessage = response.messages
+              ? response.messages[0]
+              : "There was an error while trying to log you in :(";
+
+            return;
+          }
+
           // Now display the input for entering verification code
           this.verifying = true;
         })
@@ -108,9 +117,16 @@ export default {
           countryCode: this.countryCode,
           verificationCode: this.verificationCode
         })
-        .then(() => {
+        .then(response => {
           this.isRequestLoading = false;
-          this.$router.push("/");
+
+          if (response.status === "success") {
+            this.$router.push("/");
+          } else {
+            this.errorMessage =
+              response.messages[0] ||
+              "There was an error while trying to log you in :(";
+          }
         })
         .catch(err => {
           this.isRequestLoading = false;
@@ -118,7 +134,9 @@ export default {
 
           // Display the message contained in the error, or default text otherwise.
           this.errorMessage =
-            err.message || "There was an error while trying to log you in :(";
+            (err.messages && err.messages[0]) ||
+            err.message ||
+            "There was an error while trying to log you in :(";
         });
     },
 

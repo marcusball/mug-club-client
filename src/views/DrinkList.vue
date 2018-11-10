@@ -76,8 +76,12 @@ export default {
           vm.loading = false;
           return resp.json();
         })
-        .then(drinks => {
-          vm.drinks = drinks;
+        .then(result => {
+          if (result.status != "success") {
+            throw new Error(result.messages[0]);
+          }
+
+          vm.drinks = result.data.drinks;
         })
         .catch(wtf => {
           console.error(wtf);
