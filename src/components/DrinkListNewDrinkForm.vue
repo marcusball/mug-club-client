@@ -21,14 +21,24 @@
         <div class="col-9 col-sm-12">
           <vue-simple-suggest 
             :list="getDrinkSuggestionList"
-            :filter-by-query="true">
-            <input id="drink-name" 
-              v-model="name"
-              ref="drinkName" 
-              class="form-input" 
-              type="text"
-              autocomplete="off"
-              @keydown.enter.prevent="$refs.drinkBrewery.focus" />
+            :filter-by-query="true"
+            :display-attribute="'name'">
+            <div>
+              <input id="drink-name" 
+                slot="default"
+                v-model="name"
+                ref="drinkName" 
+                class="form-input" 
+                type="text"
+                autocomplete="off"
+                @keydown.enter.prevent="$refs.drinkBrewery.focus" />
+            </div>
+
+            <div slot="suggestion-item" slot-scope="{ suggestion, query }" class="beer-suggest-item">
+              <div>
+                <span>{{ suggestion.name }}</span><br />
+                <em class="text-gray">{{ suggestion.brewery }}</em></div>
+            </div>
           </vue-simple-suggest>
         </div>
       </div>
@@ -160,7 +170,7 @@ export default {
       return fetch(`${API_BASE}/search/beer?${query}`)
         .then(response => response.json())
         .then(response => {
-          return response.data.beers.map(beer => beer.name);
+          return response.data.beers;
         });
     }
   },
