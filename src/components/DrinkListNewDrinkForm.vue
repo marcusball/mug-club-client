@@ -19,12 +19,17 @@
           <label class="form-label" for="drink-name">Beer:</label>
         </div>
         <div class="col-9 col-sm-12">
-          <input id="drink-name" 
-            v-model="name" 
-            ref="drinkName" 
-            class="form-input" 
-            type="text"
-            @keydown.enter.prevent="$refs.drinkBrewery.focus" />
+          <vue-simple-suggest 
+            :list="getDrinkSuggestionList"
+            :filter-by-query="true">
+            <input id="drink-name" 
+              v-model="name"
+              ref="drinkName" 
+              class="form-input" 
+              type="text"
+              autocomplete="off"
+              @keydown.enter.prevent="$refs.drinkBrewery.focus" />
+          </vue-simple-suggest>
         </div>
       </div>
 
@@ -91,9 +96,11 @@
 <script>
 import { Datetime } from "vue-datetime";
 import StarRating from "vue-star-rating";
+import VueSimpleSuggest from "vue-simple-suggest";
 
 // You need a specific loader for CSS files
 import "vue-datetime/dist/vue-datetime.css";
+import "vue-simple-suggest/dist/styles.css";
 
 export default {
   data() {
@@ -143,6 +150,18 @@ export default {
 
     focusDrinkName() {
       this.$refs.drinkName.focus();
+    },
+
+    getDrinkSuggestionList(drinkName) {
+      const API_BASE = process.env.VUE_APP_API_URL;
+
+      let query = `query=${encodeURIComponent(drinkName)}`;
+
+      return fetch(`${API_BASE}/search/beer?${query}`)
+        .then(response => response.json())
+        .then(response => {
+          return response.data.beers.map(beer => beer.name);
+        });
     }
   },
 
@@ -157,7 +176,8 @@ export default {
 
   components: {
     Datetime,
-    StarRating
+    StarRating,
+    VueSimpleSuggest
   }
 };
 </script>

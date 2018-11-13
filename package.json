@@ -24,6 +24,7 @@
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
     "vue-scrollto": "^2.13.0",
+    "vue-simple-suggest": "^1.8.2",
     "vue-star-rating": "^1.6.1",
     "vue-tel-input": "^2.0.8",
     "vuex": "^3.0.1"

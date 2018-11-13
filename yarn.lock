@@ -7970,6 +7970,11 @@ vue-scrollto@^2.13.0:
   dependencies:
     bezier-easing "^2.0.3"
 
+vue-simple-suggest@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/vue-simple-suggest/-/vue-simple-suggest-1.8.2.tgz#dc734f651b0a11ec70bb17192c5cd5eb8e221977"
+  integrity sha512-pTMLa8KxzkPOj+oruNDhT11X4f2BQvaPfVArnmxeopdQeE60hASgaIWgCeV3r4vQqH6au01idfjI35THqS3FXQ==
+
 vue-star-rating@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/vue-star-rating/-/vue-star-rating-1.6.1.tgz#160cf66e6af4597180fd2552df5d03d590ec40d4"
