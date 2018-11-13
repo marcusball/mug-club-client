@@ -22,7 +22,8 @@
           <vue-simple-suggest 
             :list="getDrinkSuggestionList"
             :filter-by-query="true"
-            :display-attribute="'name'">
+            :display-attribute="'name'"
+            @select="beerSuggestionSelected">
             <div>
               <input id="drink-name" 
                 slot="default"
@@ -34,7 +35,7 @@
                 @keydown.enter.prevent="$refs.drinkBrewery.focus" />
             </div>
 
-            <div slot="suggestion-item" slot-scope="{ suggestion, query }" class="beer-suggest-item">
+            <div slot="suggestion-item" slot-scope="{ suggestion, query }">
               <div>
                 <span>{{ suggestion.name }}</span><br />
                 <em class="text-gray">{{ suggestion.brewery }}</em></div>
@@ -172,6 +173,16 @@ export default {
         .then(response => {
           return response.data.beers;
         });
+    },
+
+    beerSuggestionSelected(suggestion) {
+      if (!suggestion) {
+        return;
+      }
+
+      this.name = suggestion.name;
+      this.brewery = suggestion.brewery;
+      this.scrollToRating();
     }
   },
 
@@ -191,3 +202,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../assets/sass/main";
+
+#drink-name {
+  color: $body-font-color !important;
+}
+</style>
