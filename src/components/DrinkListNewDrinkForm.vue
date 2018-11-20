@@ -49,12 +49,19 @@
           <label class="form-label" for="drink-brewery">Brewery:</label>
         </div>
         <div class="col-9 col-sm-12">
-          <input id="drink-brewery" 
-            v-model="brewery" 
-            ref="drinkBrewery" 
-            class="form-input" 
-            type="text" 
-            @keydown.enter.prevent="scrollToRating" />
+          <vue-simple-suggest 
+            :list="getBrewerySuggestionList"
+            :filter-by-query="true"
+            :display-attribute="'name'"
+            @select="brewerySuggestionSelected">
+            <input id="drink-brewery" 
+              v-model="brewery" 
+              ref="drinkBrewery" 
+              class="form-input" 
+              type="text" 
+              autocomplete="off"
+              @keydown.enter.prevent="scrollToRating" />
+          </vue-simple-suggest>
         </div>
       </div>
 
@@ -182,6 +189,27 @@ export default {
 
       this.name = suggestion.name;
       this.brewery = suggestion.brewery;
+      this.scrollToRating();
+    },
+
+    getBrewerySuggestionList(breweryName) {
+      const API_BASE = process.env.VUE_APP_API_URL;
+
+      let query = `query=${encodeURIComponent(breweryName)}`;
+
+      return fetch(`${API_BASE}/search/brewery?${query}`)
+        .then(response => response.json())
+        .then(response => {
+          return response.data.breweries;
+        });
+    },
+
+    brewerySuggestionSelected(suggestion) {
+      if (!suggestion) {
+        return;
+      }
+
+      this.brewery = suggestion.name;
       this.scrollToRating();
     }
   },
