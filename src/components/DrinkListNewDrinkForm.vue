@@ -123,7 +123,7 @@ import "vue-simple-suggest/dist/styles.css";
 export default {
   data() {
     return {
-      drankOn: null,
+      drankOn: this.todayISODate(),
       name: "",
       brewery: "",
       rating: null,
@@ -211,6 +211,13 @@ export default {
 
       this.brewery = suggestion.name;
       this.scrollToRating();
+    },
+
+    /**
+     * @return {String} Get todays date as an ISO string, `YYYY-MM-DD`
+     */
+    todayISODate() {
+      return new Date().toISOString().slice(0, 10);
     }
   },
 
