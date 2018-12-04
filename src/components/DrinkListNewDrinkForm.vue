@@ -160,6 +160,7 @@ export default {
         .then(response => response.json())
         .then(response => {
           console.log(response.data.drink);
+          this.reset(); // Reset the form to default
           this.$emit("new-drink"); // refresh the list
         })
         .catch(err => {
@@ -225,6 +226,10 @@ export default {
      */
     todayISODate() {
       return new Date().toISOString().slice(0, 10);
+    },
+
+    reset() {
+      Object.assign(this.$data, this.$options.data.apply(this));
     }
   },
 
