@@ -72,6 +72,13 @@ export default {
     };
   },
 
+  created() {
+    const API_BASE = process.env.VUE_APP_API_URL;
+
+    // Ping the heroku instance to wake it up.
+    fetch(`${API_BASE}/wakeup`);
+  },
+
   methods: {
     login: function() {
       this.isRequestLoading = true;
