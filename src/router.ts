@@ -36,7 +36,8 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (localStorage.getItem('token') == null) {
       next({
-        path: '/auth',
+        // This is the page to which people will be redirected if not logged in
+        path: '/about',
       });
     }
     else {
