@@ -10,6 +10,7 @@
           input-id="drink-date"
           input-class="form-input"
           @close="focusDrinkName"
+          :disabled="isLoading"
         ></datetime>
       </div>
     </div>
@@ -35,6 +36,7 @@
               type="text"
               autocomplete="off"
               @keydown.enter.prevent="$refs.drinkBrewery.focus"
+              :disabled="isLoading"
             >
           </div>
 
@@ -68,6 +70,7 @@
             type="text"
             autocomplete="off"
             @keydown.enter.prevent="scrollToRating"
+            :disabled="isLoading"
           >
         </vue-simple-suggest>
       </div>
@@ -89,6 +92,7 @@
             :rounded-corners="true"
             :star-size="50"
             ref="drinkRating"
+            :read-only="isLoading"
           ></star-rating>
         </div>
         <!-- This input will show for screen sizes <= 600px wide -->
@@ -100,6 +104,7 @@
             :rounded-corners="true"
             :star-size="40"
             ref="drink-rating"
+            :read-only="isLoading"
           ></star-rating>
         </div>
       </div>
@@ -110,7 +115,7 @@
         <label class="form-label" for="drink-comment">Comment:</label>
       </div>
       <div class="col-9 col-sm-12">
-        <textarea id="drink-comment" v-model="comment" class="form-input"></textarea>
+        <textarea id="drink-comment" v-model="comment" class="form-input" :disabled="isLoading"></textarea>
       </div>
     </div>
 
@@ -134,13 +139,16 @@ export default {
       name: "",
       brewery: "",
       rating: null,
-      comment: ""
+      comment: "",
+      isLoading: false
     };
   },
 
   methods: {
     newDrink() {
       const API_BASE = process.env.VUE_APP_API_URL;
+
+      this.isLoading = true;
 
       const form = new URLSearchParams();
       form.append("drank_on", this.drankOnDate);
@@ -165,6 +173,9 @@ export default {
         })
         .catch(err => {
           alert(err);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
 
