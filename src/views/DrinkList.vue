@@ -1,6 +1,17 @@
 <template>
   <div class="container">
+    <div class="columns">
+      <div class="col-6">
     <h2>Drinks</h2>
+      </div>
+
+      <div class="col-6">
+        <button
+          v-scroll-to="'#drink-form-container'"
+          class="btn btn-primary float-right"
+        >Add a drink</button>
+      </div>
+    </div>
     <div>
       <template v-if="!loading">
           <div v-if="drinks.length">
