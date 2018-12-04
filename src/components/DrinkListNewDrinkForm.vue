@@ -1,114 +1,121 @@
 <template>
-    <form @submit.prevent="newDrink" class="form-horizontal">
-      <div class="form-group">
-        <div class="col-3 col-sm-12">
-          <label class="form-label" for="drink-date">Drank on:</label>
-        </div>
-        <div class="col-9 col-sm-12">
-          <datetime 
-            v-model="drankOn" 
-            input-id="drink-date"
-            input-class="form-input"
-            @close="focusDrinkName">
-          </datetime>
-        </div>
+  <form @submit.prevent="newDrink" class="form-horizontal">
+    <div class="form-group">
+      <div class="col-3 col-sm-12">
+        <label class="form-label" for="drink-date">Drank on:</label>
       </div>
-
-      <div class="form-group">
-        <div class="col-3 col-sm-12">
-          <label class="form-label" for="drink-name">Beer:</label>
-        </div>
-        <div class="col-9 col-sm-12">
-          <vue-simple-suggest 
-            :list="getDrinkSuggestionList"
-            :filter-by-query="true"
-            :display-attribute="'name'"
-            @select="beerSuggestionSelected">
-            <div>
-              <input id="drink-name" 
-                slot="default"
-                v-model="name"
-                ref="drinkName" 
-                class="form-input" 
-                type="text"
-                autocomplete="off"
-                @keydown.enter.prevent="$refs.drinkBrewery.focus" />
-            </div>
-
-            <div slot="suggestion-item" slot-scope="{ suggestion, query }">
-              <div>
-                <span>{{ suggestion.name }}</span><br />
-                <em class="text-gray">{{ suggestion.brewery }}</em></div>
-            </div>
-          </vue-simple-suggest>
-        </div>
+      <div class="col-9 col-sm-12">
+        <datetime
+          v-model="drankOn"
+          input-id="drink-date"
+          input-class="form-input"
+          @close="focusDrinkName"
+        ></datetime>
       </div>
+    </div>
 
-      <div class="form-group">
-        <div class="col-3 col-sm-12">
-          <label class="form-label" for="drink-brewery">Brewery:</label>
-        </div>
-        <div class="col-9 col-sm-12">
-          <vue-simple-suggest 
-            :list="getBrewerySuggestionList"
-            :filter-by-query="true"
-            :display-attribute="'name'"
-            @select="brewerySuggestionSelected">
-            <input id="drink-brewery" 
-              v-model="brewery" 
-              ref="drinkBrewery" 
-              class="form-input" 
-              type="text" 
+    <div class="form-group">
+      <div class="col-3 col-sm-12">
+        <label class="form-label" for="drink-name">Beer:</label>
+      </div>
+      <div class="col-9 col-sm-12">
+        <vue-simple-suggest
+          :list="getDrinkSuggestionList"
+          :filter-by-query="true"
+          :display-attribute="'name'"
+          @select="beerSuggestionSelected"
+        >
+          <div>
+            <input
+              id="drink-name"
+              slot="default"
+              v-model="name"
+              ref="drinkName"
+              class="form-input"
+              type="text"
               autocomplete="off"
-              @keydown.enter.prevent="scrollToRating" />
-          </vue-simple-suggest>
-        </div>
-      </div>
-
-      <div id="rating-container" class="form-group">
-        <div class="col-3 col-sm-12">
-          <label class="form-label">Rating:</label>
-        </div>
-        <div class="col-9 col-sm-12">
-          <!-- The star-rating doesn't currently support responsive layouts -->
-          <!-- See: https://github.com/craigh411/vue-star-rating/issues/28 -->
-          <!-- This first input will show only for screen sizes > 600px wide -->
-          <div class="hide-sm">
-            <star-rating v-model="rating"
-              :show-rating="false"
-              :border-width="5"
-              :rounded-corners="true"
-              :star-size="50"
-              ref="drinkRating">
-            </star-rating>
+              @keydown.enter.prevent="$refs.drinkBrewery.focus"
+            >
           </div>
-          <!-- This input will show for screen sizes <= 600px wide -->
-          <div class="show-sm">
-            <star-rating v-model="rating"
-              :show-rating="false"
-              :border-width="5"
-              :rounded-corners="true"
-              :star-size="40"
-              ref="drink-rating">
-            </star-rating>
+
+          <div slot="suggestion-item" slot-scope="{ suggestion, query }">
+            <div>
+              <span>{{ suggestion.name }}</span>
+              <br>
+              <em class="text-gray">{{ suggestion.brewery }}</em>
+            </div>
           </div>
+        </vue-simple-suggest>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-3 col-sm-12">
+        <label class="form-label" for="drink-brewery">Brewery:</label>
+      </div>
+      <div class="col-9 col-sm-12">
+        <vue-simple-suggest
+          :list="getBrewerySuggestionList"
+          :filter-by-query="true"
+          :display-attribute="'name'"
+          @select="brewerySuggestionSelected"
+        >
+          <input
+            id="drink-brewery"
+            v-model="brewery"
+            ref="drinkBrewery"
+            class="form-input"
+            type="text"
+            autocomplete="off"
+            @keydown.enter.prevent="scrollToRating"
+          >
+        </vue-simple-suggest>
+      </div>
+    </div>
+
+    <div id="rating-container" class="form-group">
+      <div class="col-3 col-sm-12">
+        <label class="form-label">Rating:</label>
+      </div>
+      <div class="col-9 col-sm-12">
+        <!-- The star-rating doesn't currently support responsive layouts -->
+        <!-- See: https://github.com/craigh411/vue-star-rating/issues/28 -->
+        <!-- This first input will show only for screen sizes > 600px wide -->
+        <div class="hide-sm">
+          <star-rating
+            v-model="rating"
+            :show-rating="false"
+            :border-width="5"
+            :rounded-corners="true"
+            :star-size="50"
+            ref="drinkRating"
+          ></star-rating>
+        </div>
+        <!-- This input will show for screen sizes <= 600px wide -->
+        <div class="show-sm">
+          <star-rating
+            v-model="rating"
+            :show-rating="false"
+            :border-width="5"
+            :rounded-corners="true"
+            :star-size="40"
+            ref="drink-rating"
+          ></star-rating>
         </div>
       </div>
+    </div>
 
-      <div class="form-group">
-        <div class="col-3 col-sm-12">
-          <label class="form-label" for="drink-comment">Comment:</label>
-        </div>
-        <div class="col-9 col-sm-12">
-          <textarea id="drink-comment" 
-            v-model="comment" 
-            class="form-input">
-          </textarea>
-        </div>
+    <div class="form-group">
+      <div class="col-3 col-sm-12">
+        <label class="form-label" for="drink-comment">Comment:</label>
       </div>
+      <div class="col-9 col-sm-12">
+        <textarea id="drink-comment" v-model="comment" class="form-input"></textarea>
+      </div>
+    </div>
 
-        <input type="submit" value="Add Drink" ref="drinkSubmit" class="btn btn-primary btn-lg" />
-    </form>
+    <input type="submit" value="Add Drink" ref="drinkSubmit" class="btn btn-primary btn-lg">
+  </form>
 </template>
 
 <script>
