@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>About</h1>
-    <p>This is your virtual Mug Club drink sheet! Use this to keep track of your Mug Club progress without needing pull out your sheet after every drink.</p>
+    <p>This is your virtual Mug Club drink sheet! Use this to keep track of your Mug Club progress without needing to pull out your sheet after every drink.</p>
 
     <p>
       Note: This is
