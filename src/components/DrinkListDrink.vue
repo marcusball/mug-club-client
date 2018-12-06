@@ -1,64 +1,64 @@
 <template>
   <div class="drink columns">
     <div class="column col-1 col-md-12 col-sm-12">
-        <div class="show-md">
-            <span class="label label-rounded  label-primary">
-                <font-awesome-icon icon="calendar-alt" size="sm" fixed-width />
-                {{drankOnDateLong}}
-            </span>
-        </div>
+      <div class="show-md">
+        <span class="label label-rounded label-primary">
+          <font-awesome-icon icon="calendar-alt" size="sm" fixed-width/>
+          {{drankOnDateLong}}
+        </span>
+      </div>
 
-        <div class="hide-md">
-            <span class="label label-rounded  label-primary">
-                <font-awesome-icon icon="calendar-alt" size="sm" fixed-width />
-                {{drankOnDateShort}}
-            </span>
-        </div>
+      <div class="hide-md">
+        <span class="label label-rounded label-primary">
+          <font-awesome-icon icon="calendar-alt" size="sm" fixed-width/>
+          {{drankOnDateShort}}
+        </span>
+      </div>
     </div>
     <div class="column col-3 col-md-6 col-sm-12">
-        <div class="float-left">
-            <font-awesome-icon icon="beer" size="sm" fixed-width class="text-gray mx-2" />
-        </div>
-        <div class="drink-text">{{drink.name}}</div>
+      <div class="float-left">
+        <font-awesome-icon icon="beer" size="sm" fixed-width class="text-gray mx-2"/>
+      </div>
+      <div class="drink-text">{{drink.name}}</div>
     </div>
     <div class="column col-3 col-md-6 col-sm-12">
-        <div class="float-left">
-            <font-awesome-icon icon="industry" size="sm" fixed-width class="text-gray mx-2" />
-        </div>
-        <div class="drink-text">{{drink.brewery}}</div>
+      <div class="float-left">
+        <font-awesome-icon icon="industry" size="sm" fixed-width class="text-gray mx-2"/>
+      </div>
+      <div class="drink-text">{{drink.brewery}}</div>
     </div>
     <div class="column col-2 col-md-6 col-sm-12">
-        <!-- Show larger icons when window width is <= 840px -->
-        <div class="show-md">
-            <star-rating
-                :rating="drink.rating"
-                :read-only="true"
-                :show-rating="false"
-                :border-width="5"
-                :rounded-corners="true"
-                :star-size="30">
-            </star-rating>
-        </div>
-        <!-- Hide larger icons when window width is > 840px -->
-        <div class="hide-md">
-            <star-rating
-                :rating="drink.rating"
-                :read-only="true"
-                :show-rating="false"
-                :border-width="5"
-                :rounded-corners="true"
-                :star-size="20">
-            </star-rating>
-        </div>
+      <!-- Show larger icons when window width is <= 840px -->
+      <div class="show-md">
+        <star-rating
+          :rating="drink.rating"
+          :read-only="true"
+          :show-rating="false"
+          :border-width="5"
+          :rounded-corners="true"
+          :star-size="30"
+        ></star-rating>
+      </div>
+      <!-- Hide larger icons when window width is > 840px -->
+      <div class="hide-md">
+        <star-rating
+          :rating="drink.rating"
+          :read-only="true"
+          :show-rating="false"
+          :border-width="5"
+          :rounded-corners="true"
+          :star-size="20"
+        ></star-rating>
+      </div>
     </div>
     <div class="column col-3 col-md-6 col-sm-12">
-        <div class="float-left">
-            <font-awesome-icon icon="quote-left" size="sm" fixed-width class="text-gray mx-2" />
-        </div>
-        <div class="drink-text">
-            <span v-if="drink.comment">{{drink.comment}}</span>
-            <em v-else class="text-gray">No comment</em></div>
-        </div>
+      <div class="float-left">
+        <font-awesome-icon icon="quote-left" size="sm" fixed-width class="text-gray mx-2"/>
+      </div>
+      <div class="drink-text">
+        <span v-if="drink.comment">{{drink.comment}}</span>
+        <em v-else class="text-gray">No comment</em>
+      </div>
     </div>
   </div>
 </template>
