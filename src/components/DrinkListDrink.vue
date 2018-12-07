@@ -103,7 +103,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import IDrink from "@/interfaces/IDrink";
-import ConfirmModal from "@/components/ConfirmModal";
+import ConfirmModal from "@/components/ConfirmModal.vue";
 import StarRating from "vue-star-rating";
 
 @Component({
