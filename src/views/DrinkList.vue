@@ -16,10 +16,11 @@
       <template v-if="!loading">
         <div v-if="drinks.length">
           <Drink
-            v-for="drink in drinks"
+            v-for="(drink, index) in drinks"
             :key="drink.id"
             class="columns bg-gray m-2 p-2"
             :drink="drink"
+            @deleted="removeDeletedDrink(index)"
           ></Drink>
         </div>
 
@@ -101,6 +102,10 @@ export default {
           console.error(wtf);
           alert(wtf);
         });
+    },
+
+    removeDeletedDrink: function(index) {
+      this.drinks.splice(index, 1);
     }
   }
 };
