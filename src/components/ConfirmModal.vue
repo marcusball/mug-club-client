@@ -22,21 +22,21 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component()
+@Component({})
 export default class ConfirmModal extends Vue {
   /**
    * Whether or not this modal is visible.
    */
   @Prop({ default: false })
-  private active: boolean;
+  private active!: boolean;
 
   @Prop({ default: "Title" })
-  private title: String;
+  private title!: String;
 
   /**
    * Whether or not to use small size instead of full size modal.
    */
   @Prop({ default: false })
-  private small: boolean;
+  private small!: boolean;
 }
 </script>
