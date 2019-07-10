@@ -4,7 +4,6 @@
       <section class="navbar-section">
         <router-link v-if="isLoggedIn" to="/" class="navbar-brand mr-2">Drinks</router-link>
         <router-link to="/about" class="btn btn-link">About</router-link>
-       
       </section>
       <section class="navbar-section">
         <router-link v-if="!isLoggedIn" to="/auth" class="btn btn-link">Login</router-link>
@@ -12,8 +11,15 @@
       </section>
     </header>
 
+    <router-view />
 
-    <router-view/>
+    <div class="divider"></div>
+
+    <footer>
+      <div class="m-2 text-center">
+        <span class="text-secondary">Mug Club App</span>
+      </div>
+    </footer>
   </div>
 </template>
 
