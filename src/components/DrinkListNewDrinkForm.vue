@@ -37,13 +37,13 @@
               autocomplete="off"
               @keydown.enter.prevent="$refs.drinkBrewery.focus"
               :disabled="isLoading"
-            >
+            />
           </div>
 
           <div slot="suggestion-item" slot-scope="{ suggestion, query }">
             <div>
               <span>{{ suggestion.name }}</span>
-              <br>
+              <br />
               <em class="text-gray">{{ suggestion.brewery }}</em>
             </div>
           </div>
@@ -71,7 +71,7 @@
             autocomplete="off"
             @keydown.enter.prevent="scrollToRating"
             :disabled="isLoading"
-          >
+          />
         </vue-simple-suggest>
       </div>
     </div>
@@ -119,7 +119,7 @@
       </div>
     </div>
 
-    <input type="submit" value="Add Drink" ref="drinkSubmit" class="btn btn-primary btn-lg">
+    <input type="submit" value="Add Drink" ref="drinkSubmit" class="btn btn-primary btn-lg" />
   </form>
 </template>
 
@@ -135,7 +135,7 @@ import "vue-simple-suggest/dist/styles.css";
 export default {
   data() {
     return {
-      drankOn: this.todayISODate(),
+      drankOn: new Date().toISOString(),
       name: "",
       brewery: "",
       rating: null,
@@ -230,13 +230,6 @@ export default {
 
       this.brewery = suggestion.name;
       this.scrollToRating();
-    },
-
-    /**
-     * @return {String} Get todays date as an ISO string, `YYYY-MM-DD`
-     */
-    todayISODate() {
-      return new Date().toISOString().slice(0, 10);
     },
 
     reset() {
