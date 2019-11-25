@@ -12,8 +12,8 @@
 
             <div class="has-icon-right">
               <vue-tel-input
-                v-model="phoneNumber"
-                @onInput="onInput"
+                v-model="phoneNumberInput"
+                @input="onInput"
                 :required="true"
                 :preferredCountries="['us', 'ca', 'gb', 'au']"
                 :placeholder="'Enter your phone number'"
@@ -39,7 +39,7 @@
                 type="tel"
                 placeholder="000000"
                 class="form-input input-lg"
-              >
+              />
 
               <!-- loading icon for the form input -->
               <i v-if="isRequestLoading" class="form-icon loading"></i>
@@ -56,15 +56,14 @@
 </template>
 
 <script>
-import VueTelInput from "vue-tel-input";
-
-import "vue-tel-input/dist/vue-tel-input.css";
+import { VueTelInput } from "vue-tel-input";
 
 export default {
   data() {
     return {
       phone: "",
       phoneNumber: "",
+      phoneNumberInput: "",
       countryCode: "",
       isNumberValid: false,
       verifying: false,
@@ -152,19 +151,10 @@ export default {
         });
     },
 
-    /**
-     * @param {string} number
-     * the phone number inputted by user, will be formatted along with country code
-     * // Ex: inputted: (AU) 0432 432 432
-     * // number = '+61432421546'
-     *
-     * @param {Boolean} isValid
-     * @param {string} country
-     */
-    onInput({ number, isValid, country }) {
+    onInput(formattedNumber, { number, valid, country }) {
       this.phoneNumber = number;
-      this.countryCode = country.dialCode;
-      this.isNumberValid = isValid;
+      this.countryCode = country && country.dialCode;
+      this.isNumberValid = valid;
     }
   },
 
@@ -174,10 +164,14 @@ export default {
 
   computed: {
     cleanedPhoneNumber: function() {
-      let num = this.phoneNumber.replace(/[^\d]/gi, "");
+      if (!this.phoneNumber) {
+        return null;
+      }
 
       // If the number is not valid, it will not have the country code added yet.
-      return this.isNumberValid ? num.slice(this.countryCode.length) : num;
+      return this.isNumberValid
+        ? this.phoneNumber.significant
+        : this.phoneNumber.input;
     }
   }
 };
